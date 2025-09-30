@@ -25,7 +25,7 @@ spec:
         image: busybox:1.36
         command: ["sh","-c"]
         args:
-          - >
+          - |
             until nc -zv postgres.sonar.svc.cluster.local 5432; do
               echo "Esperando Postgres...";
               sleep 2;
