@@ -90,6 +90,13 @@ spec:
         volumeMounts:
         - name: sonarqube-data
           mountPath: /opt/sonarqube/data
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
       volumes:
       - name: sonarqube-data
         persistentVolumeClaim:
