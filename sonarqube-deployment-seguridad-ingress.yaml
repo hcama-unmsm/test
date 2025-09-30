@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarqube
+  namespace: seguridad
+  annotations:
+    # Para nginx puedes añadir límites de body, timeouts, etc.
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-body-size: "64m"
+    nginx.ingress.kubernetes.io/server-alias: "~^.*$"  # acepta cualquier Host (incluida la IP)
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  # ? Usa SOLO una según tu controlador:
+  # ingressClassName: traefik   # si usas Traefik (k3s por defecto)
+  ingressClassName: nginx       # si usas ingress-nginx
+  rules:
+  - host: sonar.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sonarqube
+            port:
+              number: 9000
