@@ -26,7 +26,7 @@ spec:
         command: ["sh","-c"]
         args:
           - >
-            until nc -zv postgres.sonar.svc.cluster.local 5432; do
+            until nc -zv postgres.seguridad.svc.cluster.local 5432; do
               echo "Esperando Postgres...";
               sleep 2;
             done
@@ -58,7 +58,7 @@ spec:
         - containerPort: 9000
         env:
         - name: SONAR_JDBC_URL
-          value: jdbc:postgresql://postgres.sonar.svc.cluster.local:5432/sonarqube
+          value: jdbc:postgresql://postgres.seguridad.svc.cluster.local:5432/sonarqube
         - name: SONAR_JDBC_USERNAME
           valueFrom: { secretKeyRef: { name: pg-secret, key: POSTGRES_USER } }
         - name: SONAR_JDBC_PASSWORD
